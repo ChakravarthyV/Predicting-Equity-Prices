@@ -101,16 +101,17 @@ ratio_calculator(refined_df)
 
 
 """
-Decision Tree.
+Random Forest.
 """
 X = dataset_df.iloc[:, 1:].values
 y = dataset_df.iloc[:, 0].values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.35, random_state=0)
-regressor = RandomForestRegressor(n_estimators=15, random_state=0) #total number of decision trees: 15
+regressor = RandomForestRegressor(n_estimators=15, random_state=0, max_depth=4, max_features=5) #total number of decision trees: 15, max_features=15/3
 regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
+#Error Metrics
 print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
 print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
 print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
